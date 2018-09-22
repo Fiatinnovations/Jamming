@@ -17,13 +17,20 @@ class App extends React.Component{
     };
       this.addTrack= this.addTrack.bind(this);
       this.removeTrack = this.removeTrack.bind(this);
+      this.updatePlaylistName = this.updatePlaylistName.bind(this);
   }
-  //this method adds a song to the playlist state with the + button, this is passed down as an event to the track component.
+  // This method updates the sate of the playlist name. It is passed down to the playlist component as an event
+  updatePlaylistName(name){
+    this.setState({PlayListName:name});
+
+  }
+  //This method adds a song to the playlist, this is passed down as an event to the track component.
   addTrack(track){
     if (this.state.PlayListTracks.find(savedTrack => savedTrack.id === track.id)) {
       return;
     }
   }
+    //This method removes a song from the playlist, this is passed down as an event to the track component as well.
   removeTrack(track){
     if (this.state.PlayListTracks.find(savedTrack => savedTrack.id === track.id)){
       return;
@@ -37,7 +44,7 @@ class App extends React.Component{
           <SearchBar/>
           <div className="App-playlist">
             <SearchResults onAdd={this.addTrack} searchResults={this.state.SearchResults}/>
-            <PlayList onRemove={this.removeTrack} playlistName={this.state.PlayListName} playlistTracks={this.state.PlayListTracks} />
+            <PlayList onNameChange={this.updatePlaylistName} onRemove={this.removeTrack} playlistName={this.state.PlayListName} playlistTracks={this.state.PlayListTracks} />
           </div>
         </div>
       </div>
