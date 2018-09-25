@@ -1,6 +1,8 @@
-const clientId = '7d660550da394e3296472ceb23506e49';
+//Attach the clientId to a variable
+const clientId = '';
 //const redirectUri = "http://localhost:3000/";
 const redirectUri = "wejamming.surge.sh";
+//Spotify authorize uri
 const spotifyUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`
 
 let accessToken = undefined;
@@ -47,6 +49,7 @@ const Spotify = {
       if(!jsonResponse.tracks) {
         return [];
     }else {
+      //Set the URIs parameter to an array of track URIs.
       return jsonResponse.tracks.items.map(track=>{
         return  {
             id: track.id,
@@ -63,6 +66,7 @@ const Spotify = {
 
     });
   },
+  //This Method saves the playlist to a user profile on spotify
   savePlaylist(name, trackUris) {
 
   		if (!name || !trackUris || trackUris.length === 0) return;
