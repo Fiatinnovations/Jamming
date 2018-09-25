@@ -1,5 +1,6 @@
 const clientId = '7d660550da394e3296472ceb23506e49';
-const redirectUri = "http://localhost:3000/callback";
+//const redirectUri = "http://localhost:3000/";
+const redirectUri = "wejamming.surge.sh";
 const spotifyUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`
 
 let accessToken = undefined;
@@ -43,20 +44,21 @@ const Spotify = {
       }
     }).then(jsonResponse=>{
       //console.log(jsonResponse);
-      if(jsonResponse.tracks) {
-        return jsonResponse.tracks.items.map(track=>{
-          return  {
-              id: track.id,
-              name: track.name,
-              artist: track.artists[0].name,
-              album: track.album.name,
-              uri: track.uri,
-              coverArt: track.album.images[2].url
-            }
-      }
-      );
+      if(!jsonResponse.tracks) {
+        return [];
     }else {
-      return [];
+      return jsonResponse.tracks.items.map(track=>{
+        return  {
+            id: track.id,
+            name: track.name,
+            artist: track.artists[0].name,
+            album: track.album.name,
+            uri: track.uri,
+            coverArt: track.album.images[2].url
+          }
+    }
+    );
+
     }
 
     });
@@ -81,7 +83,7 @@ const Spotify = {
   		.then(jsonResponse => userId = jsonResponse.id)
   		.then(() => {
   			const createPlaylistUrl = `https://api.spotify.com/v1/users/${userId}/playlists`;
-  			fetch(createPlaylistUrl, {
+  			return fetch(createPlaylistUrl, {
   				method: 'POST',
   				headers: headers,
   				body: JSON.stringify({
@@ -92,7 +94,7 @@ const Spotify = {
   			.then(jsonResponse => playlistId = jsonResponse.id)
   			.then(() => {
   				const addPlaylistTracksUrl = `https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`;
-  				fetch(addPlaylistTracksUrl, {
+  				return fetch(addPlaylistTracksUrl, {
   					method: 'POST',
   					headers: headers,
   					body: JSON.stringify({
