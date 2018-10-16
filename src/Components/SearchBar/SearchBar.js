@@ -24,9 +24,16 @@ class SearchBar extends React.Component{
 
   render(){
     return(
+      //The SearchBar listens for enter key and searches the spotify API
       <div className="SearchBar">
-        <input onChange={this.handleTermChange} placeholder="Enter A Song, Album, or Artist" />
-        <a onClick={this.search}>SEARCH</a>
+        <input onChange={this.handleTermChange} placeholder="Enter A Song, Album, Artist"
+          onKeyDown={(event)=>{
+            if(event.keyCode === 13){
+              document.getElementById('btnSearch').click();
+            }
+          }} />
+          <a id="btnSearch" onClick={this.search}>SEARCH</a>
+
       </div>
     );
   }

@@ -1,7 +1,7 @@
 //Attach the clientId to a variable
-const clientId = '';
-//const redirectUri = "http://localhost:3000/";
-const redirectUri = "wejamming.surge.sh";
+const clientId = '7d660550da394e3296472ceb23506e49';
+const redirectUri = "http://localhost:3000/";
+//const redirectUri = "wejamming.surge.sh";
 //Spotify authorize uri
 const spotifyUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`
 

@@ -11,6 +11,7 @@ class Track extends React.Component{
   //This method adds a song to the playlist state with the + button, this is inherited from the parent component on App.
   addTrack(event){
     this.props.onAdd(this.props.track);
+    
 //This method adds a song to the playlist state with the + button, this is inherited from the parent component on App.
   }
   removeTrack(event){
